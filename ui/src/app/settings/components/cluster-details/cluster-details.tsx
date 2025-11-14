@@ -21,8 +21,9 @@ export const NamespacesEditor = ReactFormField((props: {fieldApi: FieldApi; clas
     return <input className={props.className} value={val} onChange={event => props.fieldApi.setValue(event.target.value.split(','))} />;
 });
 
-export const ClusterDetails = (props: RouteComponentProps<{server: string}>) => {
+export const ClusterDetails = (props: RouteComponentProps<{server: string; name: string}>) => {
     const server = decodeURIComponent(props.match.params.server);
+    const name = decodeURIComponent(props.match.params.name);
     const loaderRef = React.useRef<DataLoader>();
     const [updating, setUpdating] = React.useState(false);
     return (
@@ -52,6 +53,7 @@ export const ClusterDetails = (props: RouteComponentProps<{server: string}>) => 
                         }
                     }}>
                     <p />
+                    {cluster.name && cluster.name === name && (
 
                     <div className='argo-container'>
                         <EditablePanel
@@ -188,6 +190,7 @@ export const ClusterDetails = (props: RouteComponentProps<{server: string}>) => 
                             </div>
                         </div>
                     </div>
+                    )}
                 </Page>
             )}
         </DataLoader>
